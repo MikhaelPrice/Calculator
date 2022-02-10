@@ -2,6 +2,9 @@ package com.App.demo.calc.controllers;
 
 import com.App.demo.calc.Parser;
 import com.App.demo.calc.calcException;
+import com.App.demo.calc.models.Calculations;
+import com.App.demo.calc.repo.CalculationsRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,14 +18,17 @@ public class MainController {
     public static ResourceBundle rb;
     public static String localMessage;
 
+    @Autowired
+    private CalculationsRepository calculationsRepository;
+
     @GetMapping("/")
     public String getExpression(@RequestParam("expression") String expression, @RequestParam("expression") String language, Model model) {
         rb = ResourceBundle.getBundle(pathLanguage);
         String result;
         selectLanguage(language);
         model.addAttribute("Greeting", rb.getString("Greeting"));
-        model.addAttribute("Example",rb.getString("Example"));
-        model.addAttribute("Count",rb.getString("Count"));
+        model.addAttribute("Example", rb.getString("Example"));
+        model.addAttribute("Count", rb.getString("Count"));
         model.addAttribute("Entering", rb.getString("Entering"));
         model.addAttribute("Result", rb.getString("Result"));
         Parser parser = new Parser();
@@ -32,14 +38,16 @@ public class MainController {
         } catch (calcException e) {
             model.addAttribute("result", localMessage);
         }
+        Iterable<Calculations> calculations = calculationsRepository.findAll();
+        model.addAttribute("calculations", calculations);
         return "home";
     }
 
     public static void selectLanguage(String line) {
         rb = ResourceBundle.getBundle(pathLanguage);
-        line = line.replaceAll(",","");
+        line = line.replaceAll(",", "");
         switch (line) {
-            case "ru" -> pathLanguage =  "ru";
+            case "ru" -> pathLanguage = "ru";
             case "be" -> pathLanguage = "be";
             case "en" -> pathLanguage = "en";
         }
