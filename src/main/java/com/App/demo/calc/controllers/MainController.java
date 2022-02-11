@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ResourceBundle;
@@ -40,6 +41,13 @@ public class MainController {
         }
         Iterable<Calculations> calculations = calculationsRepository.findAll();
         model.addAttribute("calculations", calculations);
+        return "home";
+    }
+
+    @PostMapping("/")
+    public String postDatabase(@RequestParam String expression, @RequestParam String result, Model model){
+        Calculations calculations = new Calculations(expression, result);
+        calculationsRepository.save(calculations);
         return "home";
     }
 
