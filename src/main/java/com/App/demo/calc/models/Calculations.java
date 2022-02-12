@@ -13,12 +13,16 @@ public class Calculations {
     public Calculations() {
     }
 
-    public Calculations(String expressions, String results) {
-        this.expression = expressions;
-        this.result = results;
+    public Calculations(String expression, String result) {
+        this.expression = expression;
+        this.result = result;
     }
 
-    private String expression, result;
+    @Column(name = "expression", updatable = false, nullable = false)
+    private String expression;
+
+    @Column(name = "result", updatable = false)
+    private String result;
 
     public String getResult() {
         return result;
