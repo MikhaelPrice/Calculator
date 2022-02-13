@@ -1,6 +1,7 @@
 package com.App.demo.calc.controllers;
 
 import com.App.demo.calc.Parser;
+import com.App.demo.calc.WebView;
 import com.App.demo.calc.calcException;
 import com.App.demo.calc.models.Calculations;
 import com.App.demo.calc.repo.CalculationsRepository;
@@ -24,12 +25,8 @@ public class MainController {
     public String postDatabase(@RequestParam("expression") String expression,  @RequestParam("expression") String language, Model model ) {
         rb = ResourceBundle.getBundle(pathLanguage);
         String result;
-        selectLanguage(language);
-        model.addAttribute("Greeting", rb.getString("Greeting"));
-        model.addAttribute("Example", rb.getString("Example"));
-        model.addAttribute("Count", rb.getString("Count"));
-        model.addAttribute("Entering", rb.getString("Entering"));
-        model.addAttribute("Result", rb.getString("Result"));
+        WebView.selectLanguage(language);
+        WebView.showView(model);
         Parser parser = new Parser();
         try {
             result = parser.calc(expression.trim()).toString();
@@ -44,13 +41,4 @@ public class MainController {
         return "home";
     }
 
-    public static void selectLanguage(String line) {
-        rb = ResourceBundle.getBundle(pathLanguage);
-        line = line.replaceAll(",", "");
-        switch (line) {
-            case "ru" -> pathLanguage = "ru";
-            case "be" -> pathLanguage = "be";
-            case "en" -> pathLanguage = "en";
-        }
-    }
 }
