@@ -32,8 +32,6 @@ public class MainController {
             result = parser.calc(expression.trim()).toString();
             model.addAttribute("result", result);
             Calculations calculations = new Calculations(expression, result);
-            calculations.setExpression(expression);
-            calculations.setResult(result);
             calculationsRepository.save(calculations);
         } catch (calcException e) {
             model.addAttribute("result", localMessage);
