@@ -39,4 +39,24 @@ public class MainController {
         return "home";
     }
 
+    @GetMapping("/")
+    public String getExpression(@RequestParam("expression") String expression,  @RequestParam("expression") String language, Model model ) {
+        rb = ResourceBundle.getBundle(pathLanguage);
+        String result;
+        WebView.selectLanguage(language);
+        WebView.showView(model);
+        Parser parser = new Parser();
+        try {
+            result = parser.calc(expression.trim()).toString();
+            model.addAttribute("result", result);
+            Calculations calculations = new Calculations(expression, result);
+            calculationsRepository.save(calculations);
+        } catch (calcException e) {
+            model.addAttribute("result", localMessage);
+        }
+        return "home";
+    }
+
+
+
 }
