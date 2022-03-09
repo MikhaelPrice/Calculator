@@ -6,6 +6,7 @@ import com.App.demo.calc.calcException;
 import com.App.demo.calc.models.Calculations;
 import com.App.demo.calc.repo.CalculationsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
