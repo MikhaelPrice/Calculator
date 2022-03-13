@@ -6,7 +6,6 @@ import com.App.demo.calc.calcException;
 import com.App.demo.calc.models.Calculations;
 import com.App.demo.calc.repo.CalculationsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,8 +21,6 @@ public class MainController {
     @Autowired
     private CalculationsRepository calculationsRepository;
 
-    Calculations calculations;
-
     @PostMapping("/")
     public String postDatabase(@RequestParam("expression") String expression,  @RequestParam("expression") String language, Model model ) {
         rb = ResourceBundle.getBundle(pathLanguage);
@@ -34,7 +31,7 @@ public class MainController {
         try {
             result = parser.calc(expression.trim()).toString();
             model.addAttribute("result", result);
-            calculations = new Calculations(expression, result);
+            Calculations calculations = new Calculations(expression, result);
             calculationsRepository.save(calculations);
         } catch (calcException e) {
             model.addAttribute("result", localMessage);

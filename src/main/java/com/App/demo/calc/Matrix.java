@@ -5,7 +5,7 @@ import com.App.demo.calc.controllers.MainController;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
-class Matrix extends Var {
+public class Matrix extends Var {
     private double[][] value;
     private int sizeI;
     private int sizeJ;
