@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/sign-in/">
@@ -30,6 +30,8 @@
         margin-top: 1em;
         margin-bottom: 1em;
     }
+
+
     </style>
     <!-- Custom styles for this template -->
     <link href="signin.css" rel="stylesheet">
@@ -37,23 +39,53 @@
 <body class="text-center">
 
 <main class="form-signin">
-    <form action="/" method="post">
-        <p><output name="Greeting" class="h3 mb-3 fw-normal" th:text="${Greeting}"></output>
+    <form name="calculator">
+        <p>
+            <output name="Greeting" class="h3 mb-3 fw-normal" th:text="${Greeting}"></output>
         <div class="form-floating">
-            <input name="expression" type="text" class="form-control">
-            <label name="Entering" th:text="${Entering}">Enter an expression</label>
+            <input type="text" class="form-control" name="ans" value=""><br>
+            <input type="button" value="0" onClick="document.calculator.ans.value+='0'">
+            <input type="button" value="1" onClick="document.calculator.ans.value+='1'">
+            <input type="button" value="2" onClick="document.calculator.ans.value+='2'">
+            <input type="button" value="3" onClick="document.calculator.ans.value+='3'"><br>
+            <input type="button" value="4" onClick="document.calculator.ans.value+='4'">
+            <input type="button" value="5" onClick="document.calculator.ans.value+='5'">
+            <input type="button" value="6" onClick="document.calculator.ans.value+='6'">
+            <input type="button" value="7" onClick="document.calculator.ans.value+='7'"><br>
+            <input type="button" value="8" onClick="document.calculator.ans.value+='8'">
+            <input type="button" value="9" onClick="document.calculator.ans.value+='9'">
+            <input type="button" value="." onClick="document.calculator.ans.value+='.'">
+            <input type="button" value="," onClick="document.calculator.ans.value+=','">
+            <input type="button" value="=" onClick="document.calculator.ans.value+='='">
+            <input type="reset" value="<-"><br>
+            <tr><input type="button" value="+" onClick="document.calculator.ans.value+='+'">
+                <input type="button" value="-" onClick="document.calculator.ans.value+='-'">
+                <input type="button" value="*" onClick="document.calculator.ans.value+='*'">
+                <input type="button" value="/" onClick="document.calculator.ans.value+='/'"></tr>
+            <input type="button" value="{" onClick="document.calculator.ans.value+='{'">
+            <input type="button" value="}" onClick="document.calculator.ans.value+='}'">
+            <input type="button" value="(" onClick="document.calculator.ans.value+='('">
+            <input type="button" value=")" onClick="document.calculator.ans.value+=')'">
+            <label name="Entering" th:text="${Entering}"></label><br>
         </div>
-        <button class="w-100 btn btn-lg btn-primary" type="submit" name="Count" th:text="${Count}">Count</button>
+        <br>
+        <button class="w-100 btn btn-lg btn-primary" type="submit" name="expression" th:text="${Count}"></button>
         <div class="form-floating">
             <output name="result" class="form-control" th:text="${result}" align="left"></output>
-            <label name="Result" th:text="${Result}">Result</label>
-        </div>
-        <p><button type="submit" name="expression" value="en">en</button>
-        <button type="submit" name="expression" value="be">be</button>
+            <label name="Result" th:text="${Result}"></label>
+        </div><br>
+        <p><a href="Vars">
+            <output class="h5 mb-3 fw-normal" th:text="${ShowVariables}" name="ShowVariables"></output>
+            </a>
+        </p>
+        <p>
+            <button type="submit" name="expression" value="en">en</button>
+            <button type="submit" name="expression" value="be">be</button>
             <button type="submit" name="expression" value="ru">ru</button>
     </form>
 </main>
-<p><h5 name="Example" th:text="${Example}">Examples: {{2,5},{-4,3}}-matrix 2х2,  {1,4,6}-vector,  "*"-multiplication,  "/"-division</h5>
+<p><h5 name="Example" th:text="${Example}">Examples: {{2,5},{-4,3}}-matrix 2х2, {1,4,6}-vector, "*"-multiplication,
+    "/"-division</h5>
 <div th:each="el : ${calculations}" class="alert alert-info mt-2">
     <p th:text="${el.expressions}"></p>
 </div>

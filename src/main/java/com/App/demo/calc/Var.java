@@ -15,7 +15,7 @@ public abstract class Var implements Operation {
         return var;
     }
 
-    static String printvar() {
+    public static String printvar() {
         StringBuilder var = new StringBuilder();
         if (!vars.isEmpty()) {
             for (Map.Entry<String, Var> entry : vars.entrySet()) {

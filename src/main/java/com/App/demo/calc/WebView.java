@@ -12,6 +12,7 @@ public class WebView {
         model.addAttribute("Count", MainController.rb.getString("Count"));
         model.addAttribute("Entering", MainController.rb.getString("Entering"));
         model.addAttribute("Result", MainController.rb.getString("Result"));
+        model.addAttribute("ShowVariables",MainController.rb.getString("ShowVariables"));
     }
 
     public static void selectLanguage(String line) {

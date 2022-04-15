@@ -1,6 +1,7 @@
 package com.App.demo.calc.controllers;
 
 import com.App.demo.calc.Parser;
+import com.App.demo.calc.Var;
 import com.App.demo.calc.WebView;
 import com.App.demo.calc.calcException;
 import com.App.demo.calc.models.Calculations;
@@ -22,7 +23,7 @@ public class MainController {
     private CalculationsRepository calculationsRepository;
 
     @PostMapping("/")
-    public String postDatabase(@RequestParam("expression") String expression,  @RequestParam("expression") String language, Model model ) {
+    public String postDatabase(@RequestParam("ans") String expression,  @RequestParam("expression") String language, Model model ) {
         rb = ResourceBundle.getBundle(pathLanguage);
         String result;
         WebView.selectLanguage(language);
@@ -39,4 +40,21 @@ public class MainController {
         return "home";
     }
 
+    @GetMapping("/")
+    public String getDatabase(@RequestParam("ans") String expression, @RequestParam("expression") String language, Model model ) {
+        rb = ResourceBundle.getBundle(pathLanguage);
+        String result;
+        WebView.selectLanguage(language);
+        WebView.showView(model);
+        Parser parser = new Parser();
+        try {
+            result = parser.calc(expression.trim()).toString();
+            model.addAttribute("result", result);
+            Calculations calculations = new Calculations(expression, result);
+            calculationsRepository.save(calculations);
+        } catch (calcException e) {
+            model.addAttribute("result", localMessage);
+        }
+        return "home";
+    }
 }
