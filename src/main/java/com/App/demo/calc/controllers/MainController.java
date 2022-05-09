@@ -1,7 +1,6 @@
 package com.App.demo.calc.controllers;
 
 import com.App.demo.calc.Parser;
-import com.App.demo.calc.Var;
 import com.App.demo.calc.WebView;
 import com.App.demo.calc.calcException;
 import com.App.demo.calc.models.Calculations;

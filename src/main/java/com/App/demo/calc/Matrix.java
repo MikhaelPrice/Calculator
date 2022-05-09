@@ -10,6 +10,7 @@ public class Matrix extends Var {
     private int sizeI;
     private int sizeJ;
     public static ResourceBundle rb;
+
     public int getSizeI() {
         return sizeI;
     }
@@ -97,6 +98,11 @@ public class Matrix extends Var {
         } else {
             return super.div(other);
         }
+    }
+
+    @Override
+    public Var grade(Var other) {
+        return null;
     }
 
     @Override

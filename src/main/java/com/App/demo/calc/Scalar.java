@@ -6,7 +6,7 @@ import java.util.ResourceBundle;
 
 class Scalar extends Var {
     public static ResourceBundle rb;
-    private final double value;
+    private double value;
 
     public double getValue() {
         return value;
@@ -78,6 +78,15 @@ class Scalar extends Var {
             return new Scalar(div);
         }
         return super.div(other);
+    }
+
+    @Override
+    public Var grade(Var other) throws calcException {
+        double res = 1;
+        for (int i = 0; i < Double.parseDouble(other.toString()); i++) {
+            res *= this.value;
+        }
+        return new Scalar(res);
     }
 
     @Override

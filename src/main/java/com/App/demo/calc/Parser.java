@@ -56,6 +56,8 @@ public class Parser {
                 return one.mul(two);
             case "/":
                 return one.div(two);
+            case "^":
+                return one.grade(two);
         }
         MainController.localMessage = rb.getString("NoOperation");
         throw new calcException(MainController.localMessage);

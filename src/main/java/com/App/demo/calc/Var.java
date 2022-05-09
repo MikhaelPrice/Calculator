@@ -69,4 +69,10 @@ public abstract class Var implements Operation {
         MainController.localMessage = rb.getString("NoDiv") + " " + this + "/" + other;
         throw new calcException(MainController.localMessage);
     }
+    @Override
+    public Var grade(Var other) throws calcException {
+        rb = ResourceBundle.getBundle(MainController.pathLanguage);
+        MainController.localMessage = rb.getString("NoGrade") + " " + this + "^" + other;
+        throw new calcException(MainController.localMessage);
+    }
 }

@@ -5,4 +5,5 @@ public interface Operation {
     Var sub(Var other) throws calcException;
     Var mul(Var other) throws calcException;
     Var div(Var other) throws calcException;
+    Var grade(Var other) throws calcException;
 }

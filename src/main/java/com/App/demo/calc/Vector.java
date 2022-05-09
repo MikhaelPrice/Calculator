@@ -77,6 +77,19 @@ public class Vector extends Var {
     }
 
     @Override
+    public Var grade(Var other) throws calcException {
+        double res = 0, grade = Double.parseDouble(other.toString());
+        double[] newVector = Arrays.copyOf(value, value.length);
+        for (int i = 0; i < grade; i++) {
+            for (int j = 0; j < newVector.length; j++) {
+                newVector[i] *= ((Vector) other).getValue()[i];
+                res += newVector[i];
+            }
+        }
+        return new Scalar(res);
+    }
+
+    @Override
     public Var mul(Var other) throws calcException {
         rb = ResourceBundle.getBundle(MainController.pathLanguage);
         if (other instanceof Scalar) {
