@@ -61,7 +61,8 @@
             <tr><input type="button" value="+" onClick="document.calculator.ans.value+='+'">
                 <input type="button" value="-" onClick="document.calculator.ans.value+='-'">
                 <input type="button" value="*" onClick="document.calculator.ans.value+='*'">
-                <input type="button" value="/" onClick="document.calculator.ans.value+='/'"></tr>
+                <input type="button" value="/" onClick="document.calculator.ans.value+='/'">
+                <input type="button" value="^" onClick="document.calculator.ans.value+='^'"></tr>
             <input type="button" value="{" onClick="document.calculator.ans.value+='{'">
             <input type="button" value="}" onClick="document.calculator.ans.value+='}'">
             <input type="button" value="(" onClick="document.calculator.ans.value+='('">
@@ -84,8 +85,7 @@
             <button type="submit" name="expression" value="ru">ru</button>
     </form>
 </main>
-<p><h5 name="Example" th:text="${Example}">Examples: {{2,5},{-4,3}}-matrix 2х2, {1,4,6}-vector, "*"-multiplication,
-    "/"-division</h5>
+<p><h5 name="Example" th:text="${Example}"></h5>
 <div th:each="el : ${calculations}" class="alert alert-info mt-2">
     <p th:text="${el.expressions}"></p>
 </div>

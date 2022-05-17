@@ -43,13 +43,28 @@ class CalcTest {
         assertEquals("25.55", parser.calc("B=A*3.5").toString());
         assertEquals("25.0", parser.calc("B1=B+0.11*-5").toString());
         assertEquals("2.65", parser.calc("B2=A/2-1").toString());
+        assertEquals("-100000.0", parser.calc("C=(2-6^2/3)^5").toString());
+    }
+
+    @Test
+    public void scalarGrade() throws Exception{
+        Parser parser = new Parser();
+        assertEquals("16.0", parser.calc("4^2").toString());
+        assertEquals("312.5", parser.calc("5^(3*8-20)/2").toString());
+    }
+
+    @Test
+    public void vectorGrade() throws Exception{
+        Parser parser = new Parser();
+        assertEquals("{76.0, 114.0, 190.0}", parser.calc("{2,3,5}^3").toString());
+        assertEquals("625.0", parser.calc("{4,-3,0}^4").toString());
+        assertEquals("1.0", parser.calc("{3,-10,5}^0").toString());
     }
 
     @Test
     public void vectorAddScalar() throws Exception {
         Parser parser = new Parser();
         assertEquals("{4.0, 5.0, 6.0}", parser.calc("{2,3,4}+2").toString());
-
     }
 
     @Test
@@ -102,6 +117,7 @@ class CalcTest {
         assertEquals("40.15", parser.calc("C=B+(A*2)").toString());
         assertEquals("10.0", parser.calc("D=((C-0.15)-20)/(7-5)").toString());
         assertEquals("{10.0, 15.0}", parser.calc("E={2,3}*(D/2)").toString());
+        assertEquals("{-51617.0, 36471.0, 24459.0}", parser.calc("15*{4,-3,2}^2-14*({3,-5,2}-{-10,4,8})^3").toString());
     }
 
     @Test
@@ -115,7 +131,6 @@ class CalcTest {
     public void matrixAddMatrix() throws Exception {
         Parser parser = new Parser();
         assertEquals("{{4.0, 7.0}, {9.0, 7.0}}", parser.calc("{{3,5},{1,4}}+{{1,2},{8,3}}").toString());
-
     }
 
     @Test
@@ -130,6 +145,11 @@ class CalcTest {
         Parser parser = new Parser();
         Var var = parser.calc("{{4,5},{9,7}}-{{1,2},{8,3}}");
         assertEquals("{{3.0, 3.0}, {1.0, 4.0}}", var.toString());
+    }
+    @Test
+    public void matrixGrade() throws Exception{
+        Parser parser = new Parser();
+        assertEquals("{{2,-5},{4,3}}^2",parser.calc("{{-16.0,-25.0},{20.0,-11.0}}").toString());
     }
 
     @Test

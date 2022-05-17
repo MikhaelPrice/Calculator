@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 
 public class Parser {
 
-    private static final String[] priority = {"=", "+", "-", "*", "/"};
+    private static final String[] priority = {"=", "+", "-", "*", "/", "^"};
     public static ResourceBundle rb;
 
     private String expressionSimplification(String str) throws calcException {

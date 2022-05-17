@@ -87,6 +87,7 @@ public class Matrix extends Var {
                 }
             }
             if (((Scalar) other).getValue() == 0) {
+                MainController.localMessage = rb.getString("DivZero");
                 throw new calcException(rb.getString("DivZero"));
             }
             for (int i = 0; i < res.length; i++) {
@@ -101,8 +102,37 @@ public class Matrix extends Var {
     }
 
     @Override
-    public Var grade(Var other) {
-        return null;
+    public Var grade(Var other) throws calcException {
+        rb = ResourceBundle.getBundle(MainController.pathLanguage);
+        if (!(other instanceof Scalar)) {
+            MainController.localMessage = rb.getString("NoGrade");
+            throw new calcException(rb.getString("NoGrade"));
+        }
+        double otherToDouble = Double.parseDouble(other.toString());
+        if (otherToDouble == 0) {
+            return new Scalar(1);
+        }
+        double[][] res = new double[getSizeI()][getSizeJ()];
+        for (int i = 0; i < res.length; i++) {
+            for (int j = 0; j < res.length; j++) {
+                res[i][j] = value[i][j];
+            }
+        }
+        if (res[0].length != res.length) {
+            MainController.localMessage = rb.getString("NoGrade");
+            throw new calcException(rb.getString("NoGrade"));
+        }
+        double[][] newMatrix = new double[res.length][res.length];
+        for (int p = 1; p < otherToDouble; p++) {
+            for (int i = 0; i < res.length; i++) {
+                for (int j = 0; j < res.length; j++) {
+                    for (int k = 0; k < res.length; k++) {
+                        newMatrix[i][j] += res[i][k] * res[k][j];
+                    }
+                }
+            }
+        }
+        return new Matrix(newMatrix);
     }
 
     @Override
@@ -131,6 +161,7 @@ public class Matrix extends Var {
                 }
             }
             if (getSizeI() != ((Matrix) other).sizeI || getSizeJ() != ((Matrix) other).sizeJ) {
+                MainController.localMessage = rb.getString("MatrixDiffLength");
                 throw new calcException(rb.getString("MatrixDiffLength"));
             }
             for (int i = 0; i < res.length; i++) {
@@ -170,6 +201,7 @@ public class Matrix extends Var {
                 }
             }
             if (getSizeI() != ((Matrix) other).sizeI || getSizeJ() != ((Matrix) other).sizeJ) {
+                MainController.localMessage = rb.getString("MatrixDiffLength");
                 throw new calcException(rb.getString("MatrixDiffLength"));
             }
             for (int i = 0; i < res.length; i++) {
@@ -209,6 +241,7 @@ public class Matrix extends Var {
             double[] result = Arrays.copyOf(((Vector) other).getValue(), ((Vector) other).getValue().length);
             double[] newVector = new double[res.length];
             if (res[0].length != result.length) {
+                MainController.localMessage = rb.getString("MatrixVectorDiffLength");
                 throw new calcException(rb.getString("MatrixVectorDiffLength"));
             }
             for (int i = 0; i < res.length; i++) {
@@ -231,6 +264,7 @@ public class Matrix extends Var {
                 }
             }
             if (res[0].length != result.length) {
+                MainController.localMessage = rb.getString("DiffLengthInMatrix");
                 throw new calcException(rb.getString("DiffLengthInMatrix"));
             }
             double[][] newMatrix = new double[res.length][result[0].length];

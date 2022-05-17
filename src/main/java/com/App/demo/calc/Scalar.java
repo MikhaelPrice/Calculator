@@ -82,10 +82,11 @@ class Scalar extends Var {
 
     @Override
     public Var grade(Var other) throws calcException {
-        double res = 1;
-        for (int i = 0; i < Double.parseDouble(other.toString()); i++) {
-            res *= this.value;
+        if (!(other instanceof Scalar)) {
+            MainController.localMessage = rb.getString("NoGrade");
+            throw new calcException(rb.getString("NoGrade"));
         }
+        double res = Math.pow(this.getValue(), Double.parseDouble(other.toString()));
         return new Scalar(res);
     }
 

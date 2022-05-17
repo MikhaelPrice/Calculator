@@ -78,15 +78,58 @@ public class Vector extends Var {
 
     @Override
     public Var grade(Var other) throws calcException {
-        double res = 0, grade = Double.parseDouble(other.toString());
-        double[] newVector = Arrays.copyOf(value, value.length);
-        for (int i = 0; i < grade; i++) {
-            for (int j = 0; j < newVector.length; j++) {
-                newVector[i] *= ((Vector) other).getValue()[i];
-                res += newVector[i];
-            }
+        rb = ResourceBundle.getBundle(MainController.pathLanguage);
+        if (!(other instanceof Scalar)) {
+            MainController.localMessage = rb.getString("NoGrade");
+            throw new calcException(rb.getString("NoGrade"));
         }
-        return new Scalar(res);
+        double otherToDouble = Double.parseDouble(other.toString());
+        if (otherToDouble == 0) {
+            return new Scalar(1);
+        }
+        boolean isEven = otherToDouble % 2 == 0;
+        double[] v1 = Arrays.copyOf(getValue(), getValue().length);
+        double[] result = Arrays.copyOf(getValue(), getValue().length);
+        double res = 0;
+        if (isEven) {
+            for (int i = 1; i < otherToDouble; i++) {
+                for (int j = 0; j < v1.length; j++) {
+                    if (i % 2 == 0) {
+                        v1[j] *= res;
+                    } else {
+                        v1[j] *= result[j];
+                    }
+                }
+                res = 0;
+                for (int k = 0; k < v1.length; k++) {
+                    result[k] = v1[k];
+                    if (i % 2 != 0) {
+                        res += result[k];
+                    }
+                }
+                v1 = Arrays.copyOf(getValue(), getValue().length);
+            }
+            return new Scalar(res);
+        } else {
+            for (int i = 1; i < otherToDouble; i++) {
+                for (int j = 0; j < v1.length; j++) {
+                    if (i % 2 == 0) {
+                        v1[j] *= res;
+                    } else {
+                        v1[j] *= result[j];
+                    }
+                }
+                res = 0;
+                for (int k = 0; k < v1.length; k++) {
+                    result[k] = v1[k];
+                    if (i % 2 != 0) {
+                        res += result[k];
+                    }
+                }
+                v1 = Arrays.copyOf(getValue(), getValue().length);
+            }
+            return new Vector(result);
+        }
     }
 
     @Override
